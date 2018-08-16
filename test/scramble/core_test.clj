@@ -19,5 +19,6 @@
 (deftest validator
   (testing "scramble params"
     (is (valid? alphabet "asdf"))
+    (is (not (valid? alphabet nil)))
     (is (not (valid? alphabet "ASDF")))
     (is (not (valid? alphabet "1234")))))

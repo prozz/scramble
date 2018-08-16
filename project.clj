@@ -3,7 +3,9 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [ring "1.6.1"]
                  [compojure "1.6.1"]
-                 [ring/ring-json "0.4.0"]]
+                 [ring/ring-json "0.4.0"]
+                 [ring-cors "0.1.12"]]
+  
   :plugins [[lein-ring "0.12.4"]]
 
   :ring {:handler scramble.core/webapp}

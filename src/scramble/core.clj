@@ -3,6 +3,7 @@
             [compojure.route :as route]
             [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.json :refer [wrap-json-response]]
+            [ring.middleware.cors :refer [wrap-cors]]
             [ring.util.response :refer :all]))
 
 (def alphabet "abcdefghijklmnopqrstuvwxyz")
@@ -16,7 +17,8 @@
 
 (defn valid? [allowed s]
   "checks if string consist of allowed characters"
-  (some? (re-find (re-pattern (str "^[" allowed "]*$")) s)))
+  (and (some? s)
+       (some? (re-find (re-pattern (str "^[" allowed "]*$")) s))))
 
 (defroutes scramble-routes
   (GET "/scramble" [s1 s2]
@@ -30,4 +32,6 @@
 (def webapp
   (-> scramble-routes
       wrap-params
+      (wrap-cors :access-control-allow-origin #"http://localhost:3449"
+                 :access-control-allow-methods [:get])
       wrap-json-response))
